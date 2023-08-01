@@ -40,7 +40,22 @@ def run():
     sales_li = sales_list()
     for i in sales_li:
         avg+=i/12
+    profit_list,avr_profit= cal_profit()
 
-    return total,min_key,my_dict[min_key],max_key,my_dict[max_key], avg
+    return total,min_key,my_dict[min_key],max_key,my_dict[max_key],avg, profit_list, avr_profit
 
 
+ # calculate profit of every month, append profit_list and average profit of the year
+def cal_profit():
+    data = read_data()
+    profit_list = []
+    for row in data:
+        sale = int(row['sales'])
+        expenses = int(row['expenditure'])
+        profit = sale - expenses
+        profit_list.append(profit)
+
+    yearly_profit = sum(profit_list)
+    avr_profit = yearly_profit/12
+
+    return profit_list,avr_profit
